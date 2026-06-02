@@ -9,6 +9,8 @@ A browser-based video editor powered by [ffmpeg.wasm](https://github.com/ffmpegw
 ### 🎞 GIF Maker
 Convert any video clip into an animated GIF. Set the frame rate and output width; height scales automatically to preserve the aspect ratio. Uses a two-pass palette generation for the best possible colour quality.
 
+<img src='demos/makegif.gif'>
+
 ### 🔄 Video Format Converter
 Re-encode a video to a different container and codec:
 - **MP4** -- H.264 + AAC, widest compatibility
@@ -41,6 +43,8 @@ Speed up or slow down playback (0.25× – 4×). Both the video PTS and the `ate
 
 ### 🔄 Rotate / Flip
 Correct orientation or create mirror effects without re-uploading. Options: 90° clockwise, 90° counter-clockwise, 180°, flip horizontal, flip vertical, or flip both axes.
+
+<img src='demos/invert.gif'>
 
 ### ✂️ Crop
 Trim the frame to a specific region. X/Y offset and width/height are auto-filled from the source video dimensions so you can immediately drag values down rather than starting from scratch.

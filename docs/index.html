@@ -1078,7 +1078,7 @@ async function runProcess() {
       }
       case 'raw': {
         const userArgs = parseShellArgs(document.getElementById('rawArgs').value);
-        if (!userArgs.length) throw new Error('No ffmpeg arguments entered.');
+        //if (!userArgs.length) throw new Error('No ffmpeg arguments entered.');
         ext = document.getElementById('rawExt').value.trim().replace(/^\./, '') || 'mp4';
         if (document.getElementById('rawBypassTrim').checked) {
           args.length = 0;
@@ -1094,7 +1094,8 @@ async function runProcess() {
     args.push(outName);
 
     addLog('ffmpeg ' + args.join(' '), 'ok');
-    await ffmpeg.exec(args);
+    const exitCode = await ffmpeg.exec(args);
+    if (exitCode !== 0) throw new Error(`ffmpeg exited with code ${exitCode} — check your arguments and try again.`);
     addLog('Done!', 'ok');
 
     const data = await ffmpeg.readFile(outName);
@@ -1132,6 +1133,9 @@ async function runProcess() {
 
   } catch (err) {
     addLog('Error: ' + err.message, 'err');
+    // Still try to clean up FS on error
+    try { await ffmpeg.deleteFile(inName); } catch (_) {}
+    try { await ffmpeg.deleteFile('output.' + outExt); } catch (_) {}
     console.error(err);
   } finally {
     btn.disabled = false;
